@@ -1,2 +1,2 @@
 # HelpFlow
-Sistema laravel de chamados.
+Sistema de chamados em Laravel.
