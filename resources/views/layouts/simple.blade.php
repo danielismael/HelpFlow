@@ -13,13 +13,10 @@
 
         <!-- Style -->
         <link rel="stylesheet" href="{{asset('css/general.css')}}">
+        <link rel="stylesheet" href="{{asset('css/login.css')}}">
         <link rel="stylesheet" href="{{asset('css/sidebar.css')}}">
     </head>
     <body class="antialiased">
-        <x-sidebar-component /> <!-- Menu -->
-
-        <div class="content">
-            @yield('content')
-        </div>
+        @yield('content')
     </body>
 </html>

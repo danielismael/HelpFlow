@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RecoverPasswordController;
+use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Ticket\Ti\TiTicketController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,10 +17,19 @@ use App\Http\Controllers\Auth\RecoverPasswordController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->middleware('auth:admin')->name('index');
+// authorization
+Route::get('/', [DashboardController::class, 'index'])->middleware('auth:admin')->name('index');
 
+Route::group([
+    'prefix' => "ticket",
+    'as' => "ticket.",
+    //'middleware' => "can:ticket",
+], function () {
+    Route::get('/', [TiTicketController::class, 'index'])->name('index');
+    Route::get('/create', [TiTicketController::class, 'create'])->name('create');
+})->middleware('auth:admin');
+
+// no authorization
 Route::name('login.')->prefix('login')->group(function () {
     Route::controller(LoginController::class)->group(function () {
         Route::get('/', 'index')->name('index')->middleware('guest:admin'); // view index
